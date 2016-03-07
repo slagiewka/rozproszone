@@ -19,9 +19,12 @@ public class Main {
         String nick = args[2];
         errorHandler(nick.length() > MAX_NICK_LENGTH, "Nickname is too long");
 
-        MulticastSocket multicastSocket = new MulticastSocket(port);
+        final MulticastSocket multicastSocket = new MulticastSocket(port);
         multicastSocket.joinGroup(address);
         multicastSocket.setLoopbackMode(false);
+
+        new Thread(new Writer(nick, multicastSocket, address, port)).start();
+        new Thread(new Reader(nick, multicastSocket)).start();
     }
 
     private static void errorHandler(Boolean statement, String error) {

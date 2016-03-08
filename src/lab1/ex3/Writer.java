@@ -1,5 +1,7 @@
 package lab1.ex3;
 
+import lab1.ex3.Util.Message;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -36,13 +38,14 @@ public class Writer implements Runnable {
         try {
             String messageContent = reader.readLine();
             while (!QUIT_CMD.equals(messageContent)) {
-                if (messageContent.length() > MESSAGE_SIZE_LIMIT) {
+                if (messageContent.length() > MESSAGE_SIZE_LIMIT || messageContent.isEmpty()) {
                     System.out.println(MESSAGE_TOO_LONG);
                 } else {
+                    final byte[] message = new Message(nick, messageContent).toBytes();
                     socket.send(
                         new DatagramPacket(
-                            messageContent.getBytes(),
-                            messageContent.length(),
+                            message,
+                            message.length,
                             address,
                             port
                         )

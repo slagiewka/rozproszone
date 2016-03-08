@@ -1,5 +1,7 @@
 package lab1.ex3;
 
+import lab1.ex3.Util.Message;
+
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -22,9 +24,11 @@ public class Reader implements Runnable{
             try {
                 socket.receive(packet);
                 byte[] data = packet.getData();
-                String string = new String(data);
-                System.out.println("Received: " + string);
-            } catch (IOException e) {
+                Message message = Message.fromBytes(data);
+                if (!nick.equals(message.getNick())) {
+                    System.out.println(message);
+                }
+            } catch (IOException | Message.InvalidChecksumException | Message.InvalidSerializedMessageException e) {
                 e.printStackTrace();
             }
 

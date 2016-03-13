@@ -7,19 +7,20 @@ import java.net.Socket;
 
 public class Reader {
     public static void read(Socket clientSocket) {
-        try {
-            final InputStream inputStream = clientSocket.getInputStream();
+        while (!clientSocket.isClosed()) {
+            try {
+                final InputStream inputStream = clientSocket.getInputStream();
 
-            final String fileName = getFileName(inputStream);
-            final FileOutputStream fileOutputStream = new FileOutputStream(fileName);
-            copyStream(inputStream, fileOutputStream);
+                final String fileName = getFileName(inputStream);
+                final FileOutputStream fileOutputStream = new FileOutputStream(fileName);
+                copyStream(inputStream, fileOutputStream);
 
-            fileOutputStream.close();
-            clientSocket.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+                fileOutputStream.close();
+                clientSocket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-
     }
 
     private static void copyStream(InputStream inputStream, OutputStream outputStream) throws IOException {

@@ -1,4 +1,4 @@
-package lab1.ex2;
+package lab1.ex2.server;
 
 import java.io.IOException;
 import java.net.ServerSocket;

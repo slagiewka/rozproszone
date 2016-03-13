@@ -1,4 +1,4 @@
-package lab1.ex2;
+package lab1.ex2.server;
 
 import org.apache.commons.io.IOUtils;
 

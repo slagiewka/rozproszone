@@ -45,15 +45,15 @@ public class DemoRunner {
             return;
         }
 
-        new Thread(new ReaderThread(additionTopicSubscriber));
-        new Thread(new ReaderThread(additionTopicSubscriber));
+        new Thread(new ReaderThread(additionTopicSubscriber)).start();
+        new Thread(new ReaderThread(additionTopicSubscriber)).start();
 
-        new Thread(new ReaderThread(subtractionTopicSubscriber));
+        new Thread(new ReaderThread(subtractionTopicSubscriber)).start();
 
-        new Thread(new ReaderThread(divisionTopicSubscriber));
+        new Thread(new ReaderThread(divisionTopicSubscriber)).start();
 
-        new Thread(new ReaderThread(multiplicationTopicSubscriber));
-        new Thread(new ReaderThread(multiplicationTopicSubscriber));
+        new Thread(new ReaderThread(multiplicationTopicSubscriber)).start();
+        new Thread(new ReaderThread(multiplicationTopicSubscriber)).start();
 
         //Start solvers
         QueueReceiver additionQueueReceiver;
